@@ -10,6 +10,7 @@ interface Role {
 
 export interface ProjectCardProps {
   id: number;
+  slug: string;
   title: string;
   description: string;
   thumbnail: string;
@@ -33,7 +34,7 @@ export interface ProjectCardProps {
 export default function ProjectCard({ project }: { project: ProjectCardProps }) {
   return (
     <a
-      href={`/project/${project.id}`}
+      href={`/project/${project.slug}`}
       className="group bg-card border border-border rounded-xl overflow-hidden hover:shadow-lg hover:border-primary/50 transition-all duration-200"
     >
       {/* Thumbnail */}

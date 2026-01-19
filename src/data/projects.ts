@@ -3,6 +3,7 @@ import { ProjectCardProps } from "@/components/shared/ProjectCard";
 export const openProjects: ProjectCardProps[] = [
     {
         id: 1,
+        slug: "startup-competition-butuh-tim-lengkap",
         title: "Startup Competition - Butuh Tim Lengkap!",
         description: "Ikut lomba startup nasional, butuh CTO dan UI Designer untuk bikin MVP",
         thumbnail: "https://images.pexels.com/photos/7414050/pexels-photo-7414050.jpeg",
@@ -28,6 +29,7 @@ export const openProjects: ProjectCardProps[] = [
     },
     {
         id: 2,
+        slug: "hackathon-project-build-social-impact-app",
         title: "Hackathon Project - Build Social Impact App",
         description: "Bikin aplikasi untuk social impact, gratis tapi bisa untuk portfolio!",
         thumbnail: "https://images.pexels.com/photos/3184451/pexels-photo-3184451.jpeg",
@@ -52,6 +54,7 @@ export const openProjects: ProjectCardProps[] = [
     },
     {
         id: 3,
+        slug: "website-company-profile-butuh-developer",
         title: "Website Company Profile - Butuh Developer",
         description: "Bikin website company profile untuk startup, paid project",
         thumbnail: "https://images.pexels.com/photos/3153207/pexels-photo-3153207.jpeg",
@@ -76,6 +79,7 @@ export const openProjects: ProjectCardProps[] = [
     },
     {
         id: 4,
+        slug: "research-project-data-analysis",
         title: "Research Project - Data Analysis",
         description: "Butuh tim untuk research project tentang AI, free collaboration",
         thumbnail: "https://images.pexels.com/photos/1181396/pexels-photo-1181396.jpeg",
@@ -100,6 +104,7 @@ export const openProjects: ProjectCardProps[] = [
     },
     {
         id: 5,
+        slug: "ui-ux-redesign-app-edukasi",
         title: "UI/UX Redesign App Edukasi",
         description: "Redesign UI/UX aplikasi edukasi, cocok buat portfolio",
         thumbnail: "https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg",
@@ -123,6 +128,7 @@ export const openProjects: ProjectCardProps[] = [
     },
     {
         id: 6,
+        slug: "mobile-app-mvp-flutter-project",
         title: "Mobile App MVP - Flutter Project",
         description: "Bangun MVP aplikasi mobile pakai Flutter, paid project",
         thumbnail: "https://images.pexels.com/photos/1181244/pexels-photo-1181244.jpeg",
@@ -147,6 +153,7 @@ export const openProjects: ProjectCardProps[] = [
     },
     {
         id: 7,
+        slug: "data-visualization-project",
         title: "Data Visualization Project",
         description: "Visualisasi data publik untuk kebutuhan riset & publikasi",
         thumbnail: "https://images.pexels.com/photos/669615/pexels-photo-669615.jpeg",
@@ -170,6 +177,7 @@ export const openProjects: ProjectCardProps[] = [
     },
     {
         id: 8,
+        slug: "ai-chatbot-untuk-customer-service",
         title: "AI Chatbot untuk Customer Service",
         description: "Bikin chatbot AI sederhana untuk customer service UMKM",
         thumbnail: "https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg",
@@ -194,6 +202,7 @@ export const openProjects: ProjectCardProps[] = [
     },
     {
         id: 9,
+        slug: "content-branding-startup-media",
         title: "Content & Branding Startup Media",
         description: "Butuh tim content & branding untuk startup media digital",
         thumbnail: "https://images.pexels.com/photos/6476582/pexels-photo-6476582.jpeg",
@@ -217,6 +226,7 @@ export const openProjects: ProjectCardProps[] = [
     },
     {
         id: 10,
+        slug: "open-source-web-app-collaboration",
         title: "Open Source Web App Collaboration",
         description: "Kolaborasi bangun open source web app untuk komunitas",
         thumbnail: "https://images.pexels.com/photos/270404/pexels-photo-270404.jpeg",
