@@ -1,22 +1,25 @@
-import HeroSection2 from "@/components/public/HeroSection2";
-import FloatingSearchBar from "@/components/public/FloatingSearchBar";
-import SidebarLayout from "@/components/layouts/SidebarLayout";
+import Navbar from "@/components/public/Navbar";
+import HeroSection from "@/components/public/HeroSection";
+import CategorySection from "@/components/public/CategorySection";
+import ProjectSection from "@/components/public/ProjectSection";
+import Footer from "@/components/public/Footer";
 
 export default function Home() {
   return (
-    <SidebarLayout>
-      {/* Floating Search Bar */}
-      <FloatingSearchBar />
+    <div className="min-h-screen bg-background">
+      <Navbar />
+      
+      {/* Hero Section */}
+      <HeroSection />
 
-      {/* Main Content */}
-      <div className="flex-1 overflow-auto">
-        {/* Hero Section with Cards */}
-        <div className="pt-16">
-          <HeroSection2 />
-        </div>
+      {/* Category Section */}
+      <CategorySection />
 
-        {/* Additional sections can go here */}
-      </div>
-    </SidebarLayout>
+      {/* Project Section */}
+      <ProjectSection />
+
+      {/* Footer */}
+      <Footer />
+    </div>
   );
 }

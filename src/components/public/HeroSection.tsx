@@ -1,86 +1,169 @@
-import React from 'react';
-import { HeroParallax } from '../ui/hero-parallax';
+"use client";
 
-const HeroSection: React.FC = () => {
-  const products = [
-    {
-      title: "Moonbeam",
-      link: "https://gomoonbeam.com",
-      thumbnail: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&auto=format&fit=crop&q=60",
-    },
-    {
-      title: "Cursor",
-      link: "https://cursor.so",
-      thumbnail: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&auto=format&fit=crop&q=60",
-    },
-    {
-      title: "Rogue",
-      link: "https://userogue.com",
-      thumbnail: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&auto=format&fit=crop&q=60",
-    },
-    {
-      title: "Editorially",
-      link: "https://editorially.org",
-      thumbnail: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=800&auto=format&fit=crop&q=60",
-    },
-    {
-      title: "Editrix AI",
-      link: "https://editrix.ai",
-      thumbnail: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800&auto=format&fit=crop&q=60",
-    },
-    {
-      title: "Pixel Perfect",
-      link: "https://app.pixelperfect.quest",
-      thumbnail: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=800&auto=format&fit=crop&q=60",
-    },
-    {
-      title: "Algochurn",
-      link: "https://algochurn.com",
-      thumbnail: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=800&auto=format&fit=crop&q=60",
-    },
-    {
-      title: "Aceternity UI",
-      link: "https://ui.aceternity.com",
-      thumbnail: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&auto=format&fit=crop&q=60",
-    },
-    {
-      title: "Tailwind Master Kit",
-      link: "https://tailwindmasterkit.com",
-      thumbnail: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&auto=format&fit=crop&q=60",
-    },
-    {
-      title: "SmartBridge",
-      link: "https://smartbridgetech.com",
-      thumbnail: "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&auto=format&fit=crop&q=60",
-    },
-    {
-      title: "Renderwork Studio",
-      link: "https://renderwork.studio",
-      thumbnail: "https://images.unsplash.com/photo-1556761175-b413da4baf72?w=800&auto=format&fit=crop&q=60",
-    },
-    {
-      title: "Creme Digital",
-      link: "https://cremedigital.com",
-      thumbnail: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&auto=format&fit=crop&q=60",
-    },
-    {
-      title: "Golden Bells Academy",
-      link: "https://goldenbellsacademy.com",
-      thumbnail: "https://images.unsplash.com/photo-1497032628192-86f99bcd76bc?w=800&auto=format&fit=crop&q=60",
-    },
-    {
-      title: "Invoker Labs",
-      link: "https://invoker.lol",
-      thumbnail: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=800&auto=format&fit=crop&q=60",
-    },
-    {
-      title: "E Free Invoice",
-      link: "https://efreeinvoice.com",
-      thumbnail: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=800&auto=format&fit=crop&q=60",
-    },
-  ];
+import { Sparkles } from "lucide-react";
+import Image from "next/image";
+import { useState, useEffect } from "react";
 
-  return <HeroParallax products={products} />;
-};
+// Define slide data type
+interface HeroSlide {
+  heading: string; // Main heading text
+  highlightWords: string[]; // Words to highlight in yellow
+  buttonText: string;
+  buttonLink: string;
+  bgGradient: string; // Tailwind gradient classes
+  imageSrc: string;
+}
 
-export default HeroSection;
+// CUSTOMIZE YOUR SLIDES HERE!
+const heroSlides: HeroSlide[] = [
+  {
+    heading: "Mulai Dapat Penghasilan dari Bakat yang Kamu Kuasai.",
+    highlightWords: ["Penghasilan", "Bakat"],
+    buttonText: "Bangun Portofolio Sekarang!",
+    buttonLink: "#",
+    bgGradient: "from-[#00B6D0] to-[#0099B8]",
+    imageSrc: "/hero-person-3.webp",
+  },
+  {
+    heading: "Kolaborasi Project Seru dengan Para Profesional!!",
+    highlightWords: ["Kolaborasi", "Profesional"],
+    buttonText: "Temukan Project!",
+    buttonLink: "#",
+    bgGradient: "from-[#4E54C8] to-[#8F94FB]",
+    imageSrc: "/hero-person-4.webp",
+  },
+  {
+    heading: "Tingkatkan Skill dan Bangun Portfolio yang Impressive!",
+    highlightWords: ["Skill", "Portfolio"],
+    buttonText: "Mulai Belajar!",
+    buttonLink: "#",
+    bgGradient: "from-[#FF6B6B] to-[#EE5A6F]",
+    imageSrc: "/hero-person-8.webp",
+  },
+//   {
+//     heading: "Raih Pengalaman Kerja Nyata Sambil Kuliah!",
+//     highlightWords: ["Pengalaman", "Kerja Nyata"],
+//     buttonText: "Lihat Peluang!",
+//     buttonLink: "#",
+//     bgGradient: "from-[#4E54C8] to-[#8F94FB]",
+//     imageSrc: "/hero-person-3.webp",
+//   },
+//   {
+//     heading: "Bergabung dengan Komunitas Developer Terbaik!",
+//     highlightWords: ["Komunitas", "Developer"],
+//     buttonText: "Join Sekarang!",
+//     buttonLink: "#",
+//     bgGradient: "from-[#F093FB] to-[#F5576C]",
+//     imageSrc: "/hero-person-3.webp",
+//   },
+];
+
+export default function HeroSection() {
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  // Auto-slide every 5 seconds
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
+
+  // Helper function to highlight words
+  const renderHeading = (heading: string, highlightWords: string[]) => {
+    let parts = [heading];
+    
+    highlightWords.forEach((word) => {
+      const newParts: string[] = [];
+      parts.forEach((part) => {
+        if (typeof part === 'string') {
+          const splitParts = part.split(word);
+          splitParts.forEach((p, i) => {
+            newParts.push(p);
+            if (i < splitParts.length - 1) {
+              newParts.push(word);
+            }
+          });
+        } else {
+          newParts.push(part);
+        }
+      });
+      parts = newParts;
+    });
+
+    return parts.map((part, index) => {
+      if (highlightWords.includes(part)) {
+        return (
+          <strong key={index} className="text-yellow-300 relative inline-block">
+            {part}
+            {index === 1 && (
+              <Sparkles className="hidden xl:block absolute -top-2 -right-8 h-6 w-6 text-yellow-300 animate-pulse" />
+            )}
+          </strong>
+        );
+      }
+      return <span key={index} className="text-white">{part}</span>;
+    });
+  };
+
+  const slide = heroSlides[currentSlide];
+
+  return (
+    <div className="bg-background container mx-auto px-4 xl:px-10 pt-4 pb-4 xl:-mt-12 xl:pb-20">
+      <div className="relative w-full">
+        {/* Hero Banner */}
+        <div className="relative w-full h-[145px] xl:h-[435px] pt-[5px] xl:pt-20">
+          <div className={`banner-carousel w-full h-full rounded-2xl overflow-hidden bg-gradient-to-br ${slide.bgGradient} transition-all duration-500`}>
+            {/* Content Container */}
+            <div className="relative flex items-center h-full">
+              {/* Left Content */}
+              <div className="px-4 xl:px-12 max-w-[calc(100%-123px)] xl:max-w-[calc(100%-362px)]">
+                <div className="mb-2.5 xl:mb-8 text-sm xl:text-5xl font-bold xl:leading-[1.2]">
+                  <h2>{renderHeading(slide.heading, slide.highlightWords)}</h2>
+                </div>
+                <a
+                  href={slide.buttonLink}
+                  className="inline-block px-3 py-1.5 xl:px-8 xl:py-3.5 rounded-full xl:rounded-2xl font-bold transition-all duration-300 hover:scale-105 text-xs xl:text-xl leading-none bg-yellow-400 text-black hover:bg-yellow-300"
+                >
+                  {slide.buttonText}
+                </a>
+              </div>
+            </div>
+
+            {/* Right Image Container */}
+            <div className="absolute right-0 bottom-0 h-[152px] w-[123px] xl:h-[446px] xl:w-[362px] flex flex-col justify-end rounded-2xl overflow-hidden">
+              <div className="h-full w-full relative">
+                <Image
+                  src={slide.imageSrc}
+                  alt={slide.heading}
+                  fill
+                  className="object-contain transition-opacity duration-500"
+                  style={{ objectPosition: 'center bottom' }}
+                  priority
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none';
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Pagination Dots */}
+          <div className="absolute bottom-2 flex w-full justify-center gap-1">
+            {heroSlides.map((_, index) => (
+              <div
+                key={index}
+                onClick={() => setCurrentSlide(index)}
+                className={`cursor-pointer rounded-full transition-all h-1 xl:h-2 mb-0 xl:mb-4 ${
+                  index === currentSlide
+                    ? "w-2 xl:w-10 bg-white"
+                    : "w-1 xl:w-2 bg-white/30"
+                }`}
+              ></div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
