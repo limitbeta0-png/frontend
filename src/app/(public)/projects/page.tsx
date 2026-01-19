@@ -1,8 +1,6 @@
 "use client";
 
 import { useState, useMemo, useRef, useEffect } from "react";
-import Navbar from "@/components/public/Navbar";
-import Footer from "@/components/public/Footer";
 import ProjectCard from "@/components/shared/ProjectCard";
 import CategorySection from "@/components/public/CategorySection";
 import { openProjects } from "@/data/projects";
@@ -145,7 +143,6 @@ export default function ProjectsPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <Navbar />
 
       <main className="container mx-auto px-4 xl:px-10 py-8">
 
@@ -273,8 +270,6 @@ export default function ProjectsPage() {
           </div>
         )}
       </main>
-
-      <Footer />
     </div>
   );
 }

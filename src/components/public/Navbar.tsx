@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
+import Image from "next/image";
 import { Search, Menu, X, Bell, ChevronDown, ChevronUp, User, Settings, LogOut, Briefcase, Code, Palette, Gamepad2, Smartphone, Database, Globe } from "lucide-react";
 import ThemeToggle from "@/components/ui/ThemeToggle";
 
@@ -17,15 +19,15 @@ export default function Navbar() {
   const notificationCount = 3; // Jumlah notifikasi
 
   const categories = [
-    { icon: Code, name: "Web Development", count: 24 },
-    { icon: Palette, name: "UI/UX Design", count: 18 },
-    { icon: Briefcase, name: "Business", count: 12 },
-    { icon: Gamepad2, name: "Game Dev", count: 8 },
+    { icon: Code, name: "Web Development", count: 24, href: "/categories/web-dev" },
+    { icon: Palette, name: "UI/UX Design", count: 18, href: "/categories/ui-ux" },
+    { icon: Briefcase, name: "Business", count: 12, href: "/categories/business" },
+    { icon: Gamepad2, name: "Game Dev", count: 8, href: "/categories/game-dev" },
     // Extra categories for testing
-    { icon: Smartphone, name: "Mobile App", count: 15 },
-    { icon: Database, name: "Data Science", count: 6 },
-    { icon: Globe, name: "Digital Marketing", count: 10 },
-    { icon: Code, name: "DevOps", count: 5 }, // Item ke-8
+    { icon: Smartphone, name: "Mobile App", count: 15, href: "/categories/mobile-app" },
+    { icon: Database, name: "Data Science", count: 6, href: "/categories/data-science" },
+    { icon: Globe, name: "Digital Marketing", count: 10, href: "/categories/marketing" },
+    { icon: Code, name: "DevOps", count: 5, href: "/categories/devops" }, 
   ];
 
   // Logic: 
@@ -42,16 +44,29 @@ export default function Navbar() {
   const remainingCount = categories.length - MAX_VISIBLE_MOBILE;
 
   return (
-    <nav className="sticky top-0 z-50 bg-background/95 backdrop-blur-md border-b border-border shadow-sm">
+    <nav role="navigation" aria-label="Main Navigation" className="sticky top-0 z-50 bg-background/95 backdrop-blur-md border-b border-border shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <a href="/" className="flex items-center">
-              <span className="text-2xl font-bold bg-gradient-to-r from-primary to-cyan-600 bg-clip-text text-transparent">
-                Coollabs
-              </span>
-            </a>
+            <Link href="/" className="flex items-center" aria-label="Coollabs Home">
+              <Image
+                src="/logo-white-mode.svg"
+                alt="Coollabs Logo"
+                width={120}
+                height={50}
+                className="h-10 w-auto dark:hidden"
+                priority
+              />
+              <Image
+                src="/logo-dark-mode.svg"
+                alt="Coollabs Logo"
+                width={120}
+                height={50}
+                className="h-10 w-auto hidden dark:block"
+                priority
+              />
+            </Link>
           </div>
 
           {/* Search Bar - Desktop */}
@@ -71,6 +86,7 @@ export default function Navbar() {
               <input
                 type="text"
                 placeholder="Cari project / role"
+                aria-label="Search projects"
                 className="block w-full pl-11 pr-4 py-2.5 border border-input rounded-lg 
                          bg-muted text-foreground placeholder:text-muted-foreground text-sm
                          focus:outline-none focus:ring-2 focus:ring-ring focus:border-primary
@@ -88,6 +104,8 @@ export default function Navbar() {
               <button
                 onClick={() => setIsCategoryOpen(!isCategoryOpen)}
                 onBlur={() => setTimeout(() => setIsCategoryOpen(false), 200)}
+                aria-expanded={isCategoryOpen}
+                aria-haspopup="true"
                 className="flex items-center space-x-1 px-4 py-2 text-foreground hover:text-primary font-medium transition-colors duration-200 text-sm"
               >
                 <span>Kategori</span>
@@ -96,11 +114,12 @@ export default function Navbar() {
 
               {/* Kategori Dropdown Menu */}
               {isCategoryOpen && (
-                <div className="absolute top-full mt-2 w-56 bg-popover rounded-lg shadow-lg border border-border py-2">
+                <div role="menu" className="absolute top-full mt-2 w-56 bg-popover rounded-lg shadow-lg border border-border py-2">
                   {categories.map((category, index) => (
-                    <a
+                    <Link
                       key={index}
-                      href="#"
+                      href={category.href}
+                      role="menuitem"
                       className="flex items-center justify-between px-4 py-2.5 hover:bg-accent transition-colors"
                     >
                       <div className="flex items-center space-x-3">
@@ -108,7 +127,7 @@ export default function Navbar() {
                         <span className="text-sm text-popover-foreground">{category.name}</span>
                       </div>
                       <span className="text-xs text-muted-foreground">{category.count}</span>
-                    </a>
+                    </Link>
                   ))}
                 </div>
               )}
@@ -120,18 +139,21 @@ export default function Navbar() {
             </button>
 
             {/* Cara Memulai? */}
-            <a
-              href="#"
+            <Link
+              href="/guide"
               className="px-4 py-2 text-foreground hover:text-primary font-medium transition-colors duration-200 text-sm"
             >
               Cara Memulai?
-            </a>
+            </Link>
 
             {/* Conditional: Logged In vs Logged Out */}
             {isLoggedIn ? (
               <>
                 {/* Notification Bell */}
-                <button className="relative p-2 text-foreground hover:bg-accent rounded-lg transition-colors duration-200">
+                <button 
+                  aria-label="Notifications"
+                  className="relative p-2 text-foreground hover:bg-accent rounded-lg transition-colors duration-200"
+                >
                   <Bell className="h-5 w-5" />
                   {hasNotifications && (
                     <span className="absolute top-1 right-1 w-4 h-4 bg-destructive text-destructive-foreground text-xs rounded-full flex items-center justify-center font-semibold">
@@ -145,6 +167,8 @@ export default function Navbar() {
                   <button
                     onClick={() => setIsProfileOpen(!isProfileOpen)}
                     onBlur={() => setTimeout(() => setIsProfileOpen(false), 200)}
+                    aria-label="User menu"
+                    aria-expanded={isProfileOpen}
                     className="flex items-center space-x-2 p-1 hover:bg-accent rounded-lg transition-colors duration-200"
                   >
                     <div className="w-8 h-8 bg-gradient-to-br from-primary to-cyan-600 rounded-full flex items-center justify-center text-primary-foreground font-semibold text-sm">
@@ -155,28 +179,28 @@ export default function Navbar() {
 
                   {/* Profile Dropdown Menu */}
                   {isProfileOpen && (
-                    <div className="absolute right-0 top-full mt-2 w-56 bg-popover rounded-lg shadow-lg border border-border py-2">
+                    <div role="menu" className="absolute right-0 top-full mt-2 w-56 bg-popover rounded-lg shadow-lg border border-border py-2">
                       <div className="px-4 py-3 border-b border-border">
                         <p className="text-sm font-semibold text-popover-foreground">John Doe</p>
                         <p className="text-xs text-muted-foreground">john@university.edu</p>
                       </div>
-                      <a href="#" className="flex items-center space-x-3 px-4 py-2.5 hover:bg-accent transition-colors">
+                      <Link href="/profile" role="menuitem" className="flex items-center space-x-3 px-4 py-2.5 hover:bg-accent transition-colors">
                         <User className="h-4 w-4 text-muted-foreground" />
                         <span className="text-sm text-popover-foreground">Profile Saya</span>
-                      </a>
-                      <a href="#" className="flex items-center space-x-3 px-4 py-2.5 hover:bg-accent transition-colors">
+                      </Link>
+                      <Link href="/my-projects" role="menuitem" className="flex items-center space-x-3 px-4 py-2.5 hover:bg-accent transition-colors">
                         <Briefcase className="h-4 w-4 text-muted-foreground" />
                         <span className="text-sm text-popover-foreground">Project Saya</span>
-                      </a>
-                      <a href="#" className="flex items-center space-x-3 px-4 py-2.5 hover:bg-accent transition-colors">
+                      </Link>
+                      <Link href="/settings" role="menuitem" className="flex items-center space-x-3 px-4 py-2.5 hover:bg-accent transition-colors">
                         <Settings className="h-4 w-4 text-muted-foreground" />
                         <span className="text-sm text-popover-foreground">Pengaturan</span>
-                      </a>
+                      </Link>
                       <div className="border-t border-border mt-2 pt-2">
-                        <a href="#" className="flex items-center space-x-3 px-4 py-2.5 hover:bg-accent transition-colors text-destructive">
+                        <button className="w-full flex items-center space-x-3 px-4 py-2.5 hover:bg-accent transition-colors text-destructive">
                           <LogOut className="h-4 w-4" />
                           <span className="text-sm font-medium">Logout</span>
-                        </a>
+                        </button>
                       </div>
                     </div>
                   )}
@@ -184,12 +208,12 @@ export default function Navbar() {
               </>
             ) : (
               /* Logged Out State */
-              <a
-                href="#"
+              <Link
+                href="/login"
                 className="px-4 py-2 text-foreground hover:text-primary font-medium transition-colors duration-200 text-sm"
               >
                 Login
-              </a>
+              </Link>
             )}
 
             <div className="border-1 border-border h-6"></div>
@@ -202,6 +226,7 @@ export default function Navbar() {
           <div className="lg:hidden">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
+              aria-label={isMenuOpen ? "Close menu" : "Open menu"}
               className="p-2 rounded-lg text-foreground hover:bg-accent transition-colors duration-200"
             >
               {isMenuOpen ? (
@@ -222,6 +247,7 @@ export default function Navbar() {
             <input
               type="text"
               placeholder="Cari project / role"
+              aria-label="Search"
               className="block w-full pl-11 pr-4 py-2.5 border border-input rounded-lg 
                        bg-muted text-foreground placeholder:text-muted-foreground text-sm
                        focus:outline-none focus:ring-2 focus:ring-ring focus:border-primary
@@ -241,9 +267,9 @@ export default function Navbar() {
               
               {/* Limited Categories Display */}
               {displayedMobileCategories.map((category, index) => (
-                <a
+                <Link
                   key={index}
-                  href="#"
+                  href={category.href}
                   className="flex items-center justify-between px-3 py-2 hover:bg-accent rounded-lg transition-colors"
                 >
                   <div className="flex items-center space-x-2">
@@ -251,7 +277,7 @@ export default function Navbar() {
                     <span className="text-sm text-foreground">{category.name}</span>
                   </div>
                   <span className="text-xs text-muted-foreground">{category.count}</span>
-                </a>
+                </Link>
               ))}
 
               {/* Action Buttons */}
@@ -278,12 +304,12 @@ export default function Navbar() {
 
                 {/* 3. "See All" Link if Total > MAX_VISIBLE_MOBILE (7) & Expanded */}
                 {isMobileCategoriesExpanded && categories.length > MAX_VISIBLE_MOBILE && (
-                  <a
+                  <Link
                     href="/projects"
                     className="flex items-center justify-center gap-1.5 w-full px-3 py-2 text-xs font-semibold text-primary hover:bg-primary/5 rounded-lg transition-colors border border-primary/20 bg-primary/5"
                   >
                     Lihat Semua Kategori Lainnya ({remainingCount}+)
-                  </a>
+                  </Link>
                 )}
               </div>
             </div>
@@ -291,12 +317,12 @@ export default function Navbar() {
             <button className="w-full px-4 py-3 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold rounded-lg transition-all duration-200 text-left">
               Open Project
             </button>
-            <a
-              href="#"
+            <Link
+              href="/guide"
               className="block px-4 py-3 text-foreground hover:bg-accent hover:text-primary rounded-lg font-medium transition-colors duration-200"
             >
               Cara Memulai?
-            </a>
+            </Link>
 
             {/* Mobile: Logged In vs Logged Out */}
             {isLoggedIn ? (
@@ -310,15 +336,15 @@ export default function Navbar() {
                     <p className="text-xs text-muted-foreground">john@university.edu</p>
                   </div>
                 </div>
-                <a href="#" className="flex items-center space-x-3 px-4 py-2.5 hover:bg-accent rounded-lg transition-colors">
+                <Link href="/profile" className="flex items-center space-x-3 px-4 py-2.5 hover:bg-accent rounded-lg transition-colors">
                   <User className="h-4 w-4 text-muted-foreground" />
                   <span className="text-sm text-foreground">Profile Saya</span>
-                </a>
-                <a href="#" className="flex items-center space-x-3 px-4 py-2.5 hover:bg-accent rounded-lg transition-colors">
+                </Link>
+                <Link href="/my-projects" className="flex items-center space-x-3 px-4 py-2.5 hover:bg-accent rounded-lg transition-colors">
                   <Briefcase className="h-4 w-4 text-muted-foreground" />
                   <span className="text-sm text-foreground">Project Saya</span>
-                </a>
-                <a href="#" className="flex items-center space-x-3 px-4 py-2.5 hover:bg-accent rounded-lg transition-colors">
+                </Link>
+                <Link href="/notifications" className="flex items-center space-x-3 px-4 py-2.5 hover:bg-accent rounded-lg transition-colors">
                   <Bell className="h-4 w-4 text-muted-foreground" />
                   <span className="text-sm text-foreground">Notifikasi</span>
                   {hasNotifications && (
@@ -326,23 +352,23 @@ export default function Navbar() {
                       {notificationCount}
                     </span>
                   )}
-                </a>
-                <a href="#" className="flex items-center space-x-3 px-4 py-2.5 hover:bg-accent rounded-lg transition-colors">
+                </Link>
+                <Link href="/settings" className="flex items-center space-x-3 px-4 py-2.5 hover:bg-accent rounded-lg transition-colors">
                   <Settings className="h-4 w-4 text-muted-foreground" />
                   <span className="text-sm text-foreground">Pengaturan</span>
-                </a>
-                <a href="#" className="flex items-center space-x-3 px-4 py-2.5 hover:bg-destructive/10 rounded-lg transition-colors text-destructive mt-2">
+                </Link>
+                <button className="w-full flex items-center space-x-3 px-4 py-2.5 hover:bg-destructive/10 rounded-lg transition-colors text-destructive mt-2">
                   <LogOut className="h-4 w-4" />
                   <span className="text-sm font-medium">Logout</span>
-                </a>
+                </button>
               </div>
             ) : (
-              <a
-                href="#"
+              <Link
+                href="/login"
                 className="block px-4 py-3 text-foreground hover:bg-accent hover:text-primary rounded-lg font-medium transition-colors duration-200"
               >
                 Login
-              </a>
+              </Link>
             )}
 
             {/* Dark Mode Toggle - Mobile */}

@@ -11,7 +11,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Collabs",
+  title: "Collabs | Platform Project & Kolaborasi",
   description: "Collabs adalah platform untuk menemukan project dan kolaborasi dengan para profesional.",
 };
 

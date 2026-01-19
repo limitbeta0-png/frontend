@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+import Image from "next/image";
 import { Mail, Phone, MapPin, Facebook, Twitter, Instagram, Linkedin, Github } from "lucide-react";
 
 export default function Footer() {
@@ -7,45 +9,59 @@ export default function Footer() {
 
   const footerLinks = {
     kategori: [
-      { name: "Software & Development", href: "#" },
-      { name: "UI/UX Design", href: "#" },
-      { name: "Data & AI", href: "#" },
-      { name: "Business & Marketing", href: "#" },
-      { name: "Research & KTI", href: "#" },
+      { name: "Software & Development", href: "/categories/software" },
+      { name: "UI/UX Design", href: "/categories/ui-ux" },
+      { name: "Data & AI", href: "/categories/data-ai" },
+      { name: "Business & Marketing", href: "/categories/business" },
+      { name: "Research & KTI", href: "/categories/research" },
     ],
     tentang: [
-      { name: "Tentang Kami", href: "#" },
-      { name: "Cara Kerja", href: "#" },
-      { name: "FAQ / Bantuan", href: "#" },
-      { name: "Blog", href: "#" },
-      { name: "Press Room", href: "#" },
+      { name: "Tentang Kami", href: "/about" },
+      { name: "Cara Kerja", href: "/how-it-works" },
+      { name: "FAQ / Bantuan", href: "/faq" },
+      { name: "Blog", href: "/blog" },
+      { name: "Press Room", href: "/press" },
     ],
     penggunaan: [
-      { name: "Syarat & Ketentuan", href: "#" },
-      { name: "Kebijakan Privasi", href: "#" },
-      { name: "Cara Memulai", href: "#" },
-      { name: "Cara Kerja Freelancer", href: "#" },
-      { name: "Cara Kerja Client", href: "#" },
+      { name: "Syarat & Ketentuan", href: "/terms" },
+      { name: "Kebijakan Privasi", href: "/privacy" },
+      { name: "Cara Memulai", href: "/start" },
+      { name: "Cara Kerja Freelancer", href: "/freelancer-guide" },
+      { name: "Cara Kerja Client", href: "/client-guide" },
     ],
   };
 
   const socialLinks = [
-    { icon: Instagram, href: "#", label: "Instagram" },
-    { icon: Facebook, href: "#", label: "Facebook" },
-    { icon: Twitter, href: "#", label: "Twitter" },
-    { icon: Linkedin, href: "#", label: "LinkedIn" },
-    { icon: Github, href: "#", label: "GitHub" },
+    { icon: Instagram, href: "https://instagram.com", label: "Instagram" },
+    { icon: Facebook, href: "https://facebook.com", label: "Facebook" },
+    { icon: Twitter, href: "https://twitter.com", label: "Twitter" },
+    { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
+    { icon: Github, href: "https://github.com", label: "GitHub" },
   ];
 
   return (
-    <footer className="bg-card border-t border-border">
+    <footer role="contentinfo" className="bg-card border-t border-border">
       <div className="container mx-auto px-4 xl:px-10 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
           {/* Brand Section */}
           <div className="lg:col-span-2">
-            <h3 className="text-2xl font-bold bg-gradient-to-r from-primary to-cyan-600 bg-clip-text text-transparent mb-4">
-              Coollabs
-            </h3>
+              <Image
+                src="/logo-white-mode.svg"
+                alt="Coollabs Logo"
+                width={120}
+                height={50}
+                className="h-10 w-auto dark:hidden"
+                priority
+              />
+              <Image
+                src="/logo-dark-mode.svg"
+                alt="Coollabs Logo"
+                width={120}
+                height={50}
+                className="h-10 w-auto hidden dark:block"
+                priority
+              />
+            <div className="py-2"></div>
             <p className="text-muted-foreground text-sm mb-6 max-w-sm">
               Platform kolaborasi untuk mahasiswa dan profesional. Temukan project, bangun tim, dan kembangkan{" "}
               <span className="text-primary font-semibold">portfolio</span> bersama komunitas kreatif!
@@ -77,52 +93,58 @@ export default function Footer() {
           {/* Kategori */}
           <div>
             <h4 className="font-semibold text-foreground mb-4">Kategori</h4>
-            <ul className="space-y-2">
-              {footerLinks.kategori.map((link, index) => (
-                <li key={index}>
-                  <a
-                    href={link.href}
-                    className="text-sm text-muted-foreground hover:text-primary transition-colors"
-                  >
-                    {link.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
+            <nav aria-label="Footer Categories">
+              <ul className="space-y-2">
+                {footerLinks.kategori.map((link, index) => (
+                  <li key={index}>
+                    <Link
+                      href={link.href}
+                      className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                    >
+                      {link.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
           </div>
 
           {/* Tentang */}
           <div>
             <h4 className="font-semibold text-foreground mb-4">Tentang Coollabs</h4>
-            <ul className="space-y-2">
-              {footerLinks.tentang.map((link, index) => (
-                <li key={index}>
-                  <a
-                    href={link.href}
-                    className="text-sm text-muted-foreground hover:text-primary transition-colors"
-                  >
-                    {link.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
+            <nav aria-label="Footer About">
+              <ul className="space-y-2">
+                {footerLinks.tentang.map((link, index) => (
+                  <li key={index}>
+                    <Link
+                      href={link.href}
+                      className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                    >
+                      {link.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
           </div>
 
           {/* Cara Penggunaan */}
           <div>
             <h4 className="font-semibold text-foreground mb-4">Cara Penggunaan</h4>
-            <ul className="space-y-2">
-              {footerLinks.penggunaan.map((link, index) => (
-                <li key={index}>
-                  <a
-                    href={link.href}
-                    className="text-sm text-muted-foreground hover:text-primary transition-colors"
-                  >
-                    {link.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
+            <nav aria-label="Footer Guides">
+              <ul className="space-y-2">
+                {footerLinks.penggunaan.map((link, index) => (
+                  <li key={index}>
+                    <Link
+                      href={link.href}
+                      className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                    >
+                      {link.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
           </div>
         </div>
 
@@ -139,6 +161,8 @@ export default function Footer() {
               <a
                 key={index}
                 href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label={social.label}
                 className="w-9 h-9 rounded-lg bg-muted hover:bg-primary hover:text-primary-foreground flex items-center justify-center transition-all duration-200"
               >
