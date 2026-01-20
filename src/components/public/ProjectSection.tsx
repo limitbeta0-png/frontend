@@ -99,17 +99,32 @@ export default function OpenProjectSection() {
         return true;
       })
       .sort((a, b) => {
-        // ... (sorting remains same)
         if (sortBy === "deadline") {
            const daysA = parseInt(a.deadline) || 999;
            const daysB = parseInt(b.deadline) || 999;
            return daysA - daysB;
         }
         if (sortBy === "budget") {
+          // Free projects go to the end
           if (a.type !== "paid" && b.type === "paid") return 1;
           if (a.type === "paid" && b.type !== "paid") return -1;
+          
+          // Both are paid - sort by actual budget value (highest first)
+          if (a.type === "paid" && b.type === "paid" && a.budget && b.budget) {
+            // Extract numeric value from budget string (e.g., "Rp1.000.000/orang" -> 1000000)
+            const extractBudget = (budgetStr: string): number => {
+              const numStr = budgetStr.replace(/[^0-9]/g, ''); // Remove all non-numeric characters
+              return parseInt(numStr) || 0;
+            };
+            
+            const budgetA = extractBudget(a.budget);
+            const budgetB = extractBudget(b.budget);
+            return budgetB - budgetA; // Descending order (highest first)
+          }
+          
           return 0; 
         }
+        // Default: newest first
         return b.id - a.id;
       });
   }, [activeTab, searchQuery, selectedCategory, selectedUniversity, selectedMajor, selectedLocationType, selectedRequirement, sortBy, selectedCity]);
