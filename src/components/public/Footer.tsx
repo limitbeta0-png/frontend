@@ -9,25 +9,25 @@ export default function Footer() {
 
   const footerLinks = {
     kategori: [
-      { name: "Software & Development", href: "/categories/software" },
-      { name: "UI/UX Design", href: "/categories/ui-ux" },
-      { name: "Data & AI", href: "/categories/data-ai" },
-      { name: "Business & Marketing", href: "/categories/business" },
-      { name: "Research & KTI", href: "/categories/research" },
+      { name: "Software & Development", href: "/projects" },
+      { name: "UI/UX Design", href: "/projects" },
+      { name: "Data & AI", href: "/projects" },
+      { name: "Business & Marketing", href: "/projects" },
+      { name: "Research & KTI", href: "/projects" },
     ],
     tentang: [
       { name: "Tentang Kami", href: "/about" },
-      { name: "Cara Kerja", href: "/how-it-works" },
-      { name: "FAQ / Bantuan", href: "/faq" },
-      { name: "Blog", href: "/blog" },
-      { name: "Press Room", href: "/press" },
+      { name: "Cara Kerja", href: "/guide" },
+      { name: "FAQ / Bantuan", href: "/guide#faq" },
+      { name: "Blog", href: "/" },
+      { name: "Press Room", href: "/" },
     ],
     penggunaan: [
-      { name: "Syarat & Ketentuan", href: "/terms" },
-      { name: "Kebijakan Privasi", href: "/privacy" },
-      { name: "Cara Memulai", href: "/start" },
-      { name: "Cara Kerja Freelancer", href: "/freelancer-guide" },
-      { name: "Cara Kerja Client", href: "/client-guide" },
+      { name: "Syarat & Ketentuan", href: "/" },
+      { name: "Kebijakan Privasi", href: "/" },
+      { name: "Cara Memulai", href: "/guide" },
+      { name: "Cara Kerja Project Initiator", href: "/guide" },
+      { name: "Cara Kerja Project Seeker", href: "/guide" },
     ],
   };
 
@@ -77,11 +77,11 @@ export default function Footer() {
                 hello@coollabs.id
               </a>
               <a 
-                href="tel:+6281234567890" 
+                href="https://wa.me/6281235873675?text=Halo%20Coollabs!%20Saya%20ingin%20bertanya%20tentang%20platform%20kolaborasi%20project." 
                 className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
               >
                 <Phone className="h-4 w-4" />
-                +6285975360990
+                +6281235873675
               </a>
               <div className="flex items-start gap-2 text-sm text-muted-foreground">
                 <MapPin className="h-4 w-4 mt-0.5 flex-shrink-0" />

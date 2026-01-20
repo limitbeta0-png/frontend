@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Search, Menu, X, Bell, ChevronDown, ChevronUp, User, Settings, LogOut, Briefcase, Code, Palette, Gamepad2, Smartphone, Database, Globe } from "lucide-react";
 import ThemeToggle from "@/components/ui/ThemeToggle";
+import AuthModal from "@/components/shared/AuthModal";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -12,6 +13,7 @@ export default function Navbar() {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
   const [isMobileCategoriesExpanded, setIsMobileCategoriesExpanded] = useState(false);
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   
   // Toggle ini untuk demo - ubah jadi true untuk lihat logged-in state
   const isLoggedIn = false; // Ubah ke false untuk lihat logged-out state
@@ -85,7 +87,7 @@ export default function Navbar() {
               </div>
               <input
                 type="text"
-                placeholder="Cari project / role"
+                placeholder="Temukan project impianmu di sini..."
                 aria-label="Search projects"
                 className="block w-full pl-11 pr-4 py-2.5 border border-input rounded-lg 
                          bg-muted text-foreground placeholder:text-muted-foreground text-sm
@@ -208,12 +210,12 @@ export default function Navbar() {
               </>
             ) : (
               /* Logged Out State */
-              <Link
-                href="/login"
+              <button
+                onClick={() => setIsAuthModalOpen(true)}
                 className="px-4 py-2 text-foreground hover:text-primary font-medium transition-colors duration-200 text-sm"
               >
                 Login
-              </Link>
+              </button>
             )}
 
             <div className="border-1 border-border h-6"></div>
@@ -246,7 +248,7 @@ export default function Navbar() {
             </div>
             <input
               type="text"
-              placeholder="Cari project / role"
+              placeholder="Cari project Web Dev, UI/UX, Mobile App..."
               aria-label="Search"
               className="block w-full pl-11 pr-4 py-2.5 border border-input rounded-lg 
                        bg-muted text-foreground placeholder:text-muted-foreground text-sm
@@ -363,12 +365,12 @@ export default function Navbar() {
                 </button>
               </div>
             ) : (
-              <Link
-                href="/login"
-                className="block px-4 py-3 text-foreground hover:bg-accent hover:text-primary rounded-lg font-medium transition-colors duration-200"
+              <button
+                onClick={() => setIsAuthModalOpen(true)}
+                className="block w-full px-4 py-3 text-foreground hover:bg-accent hover:text-primary rounded-lg font-medium transition-colors duration-200 text-left"
               >
                 Login
-              </Link>
+              </button>
             )}
 
             {/* Dark Mode Toggle - Mobile */}
@@ -378,6 +380,9 @@ export default function Navbar() {
           </div>
         </div>
       )}
+
+      {/* Auth Modal */}
+      <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} />
     </nav>
   );
 }
