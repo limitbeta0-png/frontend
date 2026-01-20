@@ -72,7 +72,7 @@ export default function Navbar() {
           </div>
 
           {/* Search Bar - Desktop */}
-          <div className="hidden md:flex flex-1 max-w-xl mx-8">
+          {/* <div className="hidden md:flex flex-1 max-w-xl mx-8">
             <div
               className={`relative w-full transition-all duration-200 ${
                 searchFocused ? "scale-[1.01]" : ""
@@ -97,13 +97,13 @@ export default function Navbar() {
                 onBlur={() => setSearchFocused(false)}
               />
             </div>
-          </div>
+          </div> */}
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-2">
             {/* Kategori Dropdown */}
             <div className="relative">
-              <button
+              {/* <button
                 onClick={() => setIsCategoryOpen(!isCategoryOpen)}
                 onBlur={() => setTimeout(() => setIsCategoryOpen(false), 200)}
                 aria-expanded={isCategoryOpen}
@@ -112,7 +112,7 @@ export default function Navbar() {
               >
                 <span>Kategori</span>
                 <ChevronDown className={`h-4 w-4 transition-transform ${isCategoryOpen ? "rotate-180" : ""}`} />
-              </button>
+              </button> */}
 
               {/* Kategori Dropdown Menu */}
               {isCategoryOpen && (

@@ -10,7 +10,7 @@ export default function Home() {
       <HeroSection />
 
       {/* Category Section */}
-      <CategorySection />
+      {/* <CategorySection /> */}
 
       {/* Project Section */}
       <ProjectSection />

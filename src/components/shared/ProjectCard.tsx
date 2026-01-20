@@ -29,6 +29,12 @@ export interface ProjectCardProps {
     avatar: string;
   };
   tags: string[];
+  // Filter fields
+  major: string[]; // Jurusan yang dibutuhkan (bisa lebih dari 1)
+  workType: "offline" | "online" | "hybrid"; // Tipe pekerjaan
+  requirementLevel: "open-for-all" | "campus-only" | "professional"; // Level requirement
+  city: string; // Lokasi kota (berbeda dari universitas)
+  university?: string; // Universitas (optional, untuk campus-only)
 }
 
 export default function ProjectCard({ project }: { project: ProjectCardProps }) {
@@ -58,6 +64,19 @@ export default function ProjectCard({ project }: { project: ProjectCardProps }) 
                 FREE
               </>
             )}
+          </span>
+          
+          {/* Work Type Badge */}
+          <span
+            className={`text-xs font-bold px-3 py-1.5 rounded-lg shadow-lg backdrop-blur-sm ${
+              project.workType === "online"
+                ? "bg-blue-500/90 text-white shadow-blue-500/50"
+                : project.workType === "offline"
+                ? "bg-purple-500/90 text-white shadow-purple-500/50"
+                : "bg-cyan-500/90 text-white shadow-cyan-500/50"
+            }`}
+          >
+            {project.workType === "online" ? "🌐 Online" : project.workType === "offline" ? "📍 Offline" : "🔄 Hybrid"}
           </span>
         </div>
         <Image

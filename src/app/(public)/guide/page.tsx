@@ -195,16 +195,6 @@ export default function GuidePage() {
               />
             ))}
           </div>
-
-          {/* See All Link */}
-          <div className="mt-8 text-center">
-            <a href="/projects" className="inline-flex items-center gap-2 text-primary hover:text-primary/80 font-medium transition-colors">
-              Lihat Semua Kategori
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </a>
-          </div>
         </div>
 
         {/* FAQ Section */}
@@ -242,7 +232,7 @@ export default function GuidePage() {
               }
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
-            <Link href="/projects">
+            <Link href="/">
             <button className="px-8 py-3.5 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold rounded-lg transition-all duration-200 hover:shadow-lg hover:shadow-primary/20">
                 {selectedRole === "initiator" ? "Buat Project" : "Cari Project"}
             </button>
