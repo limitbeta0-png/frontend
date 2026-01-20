@@ -77,19 +77,19 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
         <div className="flex justify-center pt-2 pb-4">
           {/* Light mode logo */}
           <Image
-            src="/logo-white-mode.svg"
+            src="/logo.png"
             alt="Logo"
-            width={80}
-            height={80}
+            width={200}
+            height={200}
             className="dark:hidden"
             priority
           />
           {/* Dark mode logo */}
           <Image
-            src="/logo-dark-mode.svg"
+            src="/logo.png"
             alt="Logo"
-            width={80}
-            height={80}
+            width={200}
+            height={200}
             className="hidden dark:block"
             priority
           />

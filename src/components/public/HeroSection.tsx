@@ -109,10 +109,10 @@ export default function HeroSection() {
   const slide = heroSlides[currentSlide];
 
   return (
-    <div className="bg-background container mx-auto px-4 xl:px-10 pt-4 pb-4 xl:-mt-12 xl:pb-20">
+    <div className="bg-background container mx-auto px-4 xl:px-10 pt-2 pb-4 xl:pt-12 xl:pb-8">
       <div className="relative w-full">
         {/* Hero Banner */}
-        <div className="relative w-full h-[145px] xl:h-[435px] pt-[5px] xl:pt-20">
+        <div className="relative w-full h-[145px] xl:h-[435px]">
           <div className={`banner-carousel w-full h-full rounded-2xl overflow-hidden bg-gradient-to-br ${slide.bgGradient} transition-all duration-500`}>
             {/* Content Container */}
             <div className="relative flex items-center h-full">

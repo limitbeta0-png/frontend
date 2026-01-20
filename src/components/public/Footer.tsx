@@ -46,7 +46,7 @@ export default function Footer() {
           {/* Brand Section */}
           <div className="lg:col-span-2">
               <Image
-                src="/logo-white-mode.svg"
+                src="/logo.png"
                 alt="Coollabs Logo"
                 width={120}
                 height={50}
@@ -54,7 +54,7 @@ export default function Footer() {
                 priority
               />
               <Image
-                src="/logo-dark-mode.svg"
+                src="/logo.png"
                 alt="Coollabs Logo"
                 width={120}
                 height={50}

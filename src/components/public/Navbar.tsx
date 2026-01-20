@@ -53,7 +53,7 @@ export default function Navbar() {
           <div className="flex-shrink-0">
             <Link href="/" className="flex items-center" aria-label="Coollabs Home">
               <Image
-                src="/logo-white-mode.svg"
+                src="/logo.png"
                 alt="Coollabs Logo"
                 width={120}
                 height={50}
@@ -61,7 +61,7 @@ export default function Navbar() {
                 priority
               />
               <Image
-                src="/logo-dark-mode.svg"
+                src="/logo.png"
                 alt="Coollabs Logo"
                 width={120}
                 height={50}
@@ -71,69 +71,8 @@ export default function Navbar() {
             </Link>
           </div>
 
-          {/* Search Bar - Desktop */}
-          {/* <div className="hidden md:flex flex-1 max-w-xl mx-8">
-            <div
-              className={`relative w-full transition-all duration-200 ${
-                searchFocused ? "scale-[1.01]" : ""
-              }`}
-            >
-              <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                <Search
-                  className={`h-5 w-5 transition-colors ${
-                    searchFocused ? "text-primary" : "text-muted-foreground"
-                  }`}
-                />
-              </div>
-              <input
-                type="text"
-                placeholder="Temukan project impianmu di sini..."
-                aria-label="Search projects"
-                className="block w-full pl-11 pr-4 py-2.5 border border-input rounded-lg 
-                         bg-muted text-foreground placeholder:text-muted-foreground text-sm
-                         focus:outline-none focus:ring-2 focus:ring-ring focus:border-primary
-                         focus:bg-background transition-all duration-200"
-                onFocus={() => setSearchFocused(true)}
-                onBlur={() => setSearchFocused(false)}
-              />
-            </div>
-          </div> */}
-
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-2">
-            {/* Kategori Dropdown */}
-            <div className="relative">
-              {/* <button
-                onClick={() => setIsCategoryOpen(!isCategoryOpen)}
-                onBlur={() => setTimeout(() => setIsCategoryOpen(false), 200)}
-                aria-expanded={isCategoryOpen}
-                aria-haspopup="true"
-                className="flex items-center space-x-1 px-4 py-2 text-foreground hover:text-primary font-medium transition-colors duration-200 text-sm"
-              >
-                <span>Kategori</span>
-                <ChevronDown className={`h-4 w-4 transition-transform ${isCategoryOpen ? "rotate-180" : ""}`} />
-              </button> */}
-
-              {/* Kategori Dropdown Menu */}
-              {isCategoryOpen && (
-                <div role="menu" className="absolute top-full mt-2 w-56 bg-popover rounded-lg shadow-lg border border-border py-2">
-                  {categories.map((category, index) => (
-                    <Link
-                      key={index}
-                      href={category.href}
-                      role="menuitem"
-                      className="flex items-center justify-between px-4 py-2.5 hover:bg-accent transition-colors"
-                    >
-                      <div className="flex items-center space-x-3">
-                        <category.icon className="h-4 w-4 text-primary" />
-                        <span className="text-sm text-popover-foreground">{category.name}</span>
-                      </div>
-                      <span className="text-xs text-muted-foreground">{category.count}</span>
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </div>
 
             {/* Buka Open Project - Primary CTA */}
             <button className="px-5 py-2.5 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold rounded-lg transition-all duration-200 hover:shadow-lg hover:shadow-primary/20 text-sm">
@@ -239,82 +178,12 @@ export default function Navbar() {
             </button>
           </div>
         </div>
-
-        {/* Mobile Search Bar */}
-        <div className="md:hidden pb-3">
-          <div className="relative">
-            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-              <Search className="h-5 w-5 text-muted-foreground" />
-            </div>
-            <input
-              type="text"
-              placeholder="Cari project Web Dev, UI/UX, Mobile App..."
-              aria-label="Search"
-              className="block w-full pl-11 pr-4 py-2.5 border border-input rounded-lg 
-                       bg-muted text-foreground placeholder:text-muted-foreground text-sm
-                       focus:outline-none focus:ring-2 focus:ring-ring focus:border-primary
-                       focus:bg-background transition-all duration-200"
-            />
-          </div>
-        </div>
       </div>
 
       {/* Mobile Menu */}
       {isMenuOpen && (
         <div className="lg:hidden border-t border-border bg-background max-h-[calc(100vh-4rem)] overflow-y-auto">
           <div className="px-4 py-3 space-y-2">
-            {/* Kategori - Mobile */}
-            <div className="border-b border-border pb-2 mb-2">
-              <p className="text-xs font-semibold text-muted-foreground uppercase mb-2">Kategori</p>
-              
-              {/* Limited Categories Display */}
-              {displayedMobileCategories.map((category, index) => (
-                <Link
-                  key={index}
-                  href={category.href}
-                  className="flex items-center justify-between px-3 py-2 hover:bg-accent rounded-lg transition-colors"
-                >
-                  <div className="flex items-center space-x-2">
-                    <category.icon className="h-4 w-4 text-primary" />
-                    <span className="text-sm text-foreground">{category.name}</span>
-                  </div>
-                  <span className="text-xs text-muted-foreground">{category.count}</span>
-                </Link>
-              ))}
-
-              {/* Action Buttons */}
-              <div className="space-y-1 mt-1">
-                {/* 1. Toggle Button (Show 7 or 4) */}
-                {categories.length > INITIAL_VISIBLE_MOBILE && !isMobileCategoriesExpanded && (
-                   <button
-                   onClick={() => setIsMobileCategoriesExpanded(true)}
-                   className="w-full flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-medium text-muted-foreground hover:text-foreground hover:bg-accent rounded-lg transition-colors"
-                 >
-                   Lihat Lebih Detail <ChevronDown className="h-3.5 w-3.5" />
-                 </button>
-                )}
-
-                {/* 2. Show Less Button */}
-                {isMobileCategoriesExpanded && (
-                   <button
-                   onClick={() => setIsMobileCategoriesExpanded(false)}
-                   className="w-full flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-medium text-muted-foreground hover:text-foreground hover:bg-accent rounded-lg transition-colors"
-                 >
-                   Sembunyikan <ChevronUp className="h-3.5 w-3.5" />
-                 </button>
-                )}
-
-                {/* 3. "See All" Link if Total > MAX_VISIBLE_MOBILE (7) & Expanded */}
-                {isMobileCategoriesExpanded && categories.length > MAX_VISIBLE_MOBILE && (
-                  <Link
-                    href="/projects"
-                    className="flex items-center justify-center gap-1.5 w-full px-3 py-2 text-xs font-semibold text-primary hover:bg-primary/5 rounded-lg transition-colors border border-primary/20 bg-primary/5"
-                  >
-                    Lihat Semua Kategori Lainnya ({remainingCount}+)
-                  </Link>
-                )}
-              </div>
-            </div>
 
             <button className="w-full px-4 py-3 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold rounded-lg transition-all duration-200 text-left">
               Open Project
