@@ -12,7 +12,8 @@ import Link from "next/link";
 export default function OpenProjectSection() {
   // Filter States
   const [activeTab, setActiveTab] = useState<"all" | "paid" | "free" | "competition">("all");
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchInput, setSearchInput] = useState(""); // What user types
+  const [searchQuery, setSearchQuery] = useState(""); // Actual search query used for filtering
   const [selectedProjectId, setSelectedProjectId] = useState<number>(1);
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [selectedUniversity, setSelectedUniversity] = useState("all");
@@ -22,6 +23,18 @@ export default function OpenProjectSection() {
   const [sortBy, setSortBy] = useState<"newest" | "deadline" | "budget">("newest");
 
   const [selectedCity, setSelectedCity] = useState("all");
+
+  // Handle search execution (on button click or Enter press)
+  const handleSearch = () => {
+    setSearchQuery(searchInput);
+  };
+
+  // Handle Enter key press in search input
+  const handleSearchKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleSearch();
+    }
+  };
 
   // Get unique categories for filter dropdown
   const uniqueCategories = useMemo(() => {
@@ -85,7 +98,7 @@ export default function OpenProjectSection() {
           if (selectedRequirement === "pro" && project.requirementLevel !== "professional") return false;
         }
 
-        // 8. Search Query
+        // 8. Search Query (only applied when user clicks search or presses Enter)
         if (searchQuery) {
           const query = searchQuery.toLowerCase();
           const matchesTitle = project.title.toLowerCase().includes(query);
@@ -157,9 +170,9 @@ export default function OpenProjectSection() {
   const totalRoles = filteredProjects.reduce((sum, p) => sum + p.totalSlots, 0);
 
   return (
-    <section className="bg-background py-4">
+    <section className="bg-background py-3 sm:py-4">
       {/* ... Filter Bar and Stats ... */}
-      <div className="container mx-auto px-4 xl:px-10">
+      <div className="container mx-auto px-3 sm:px-4 xl:px-10">
         
         {/* Filter Bar */}
         <ProjectFilterBar
@@ -173,8 +186,18 @@ export default function OpenProjectSection() {
           onTabChange={(value) => setActiveTab(value as any)}
           
           searchPlaceholder="Cari posisi atau lokasi..."
-          searchValue={searchQuery}
-          onSearchChange={setSearchQuery}
+          searchValue={searchInput}
+          onSearchChange={setSearchInput}
+          onSearchKeyPress={handleSearchKeyPress}
+          onSearchClick={handleSearch}
+
+          // Autocomplete suggestions
+          suggestions={{
+            projects: openProjects.map(p => p.title),
+            tags: Array.from(new Set(openProjects.flatMap(p => p.tags))),
+            cities: Array.from(new Set(openProjects.map(p => p.city))),
+            majors: Array.from(new Set(openProjects.flatMap(p => p.major))),
+          }}
 
           topRightFilter={{
             label: "Lokasi",
@@ -261,7 +284,7 @@ export default function OpenProjectSection() {
         />
 
         {/* Stats Summary */}
-        <div className="flex flex-wrap gap-4 mb-6 text-sm">
+        <div className="flex flex-wrap gap-2 sm:gap-3 lg:gap-4 mb-4 sm:mb-5 lg:mb-6 text-xs sm:text-sm">
           <div>
             <span className="font-semibold text-foreground">Total Project: </span>
             <span className="text-primary font-bold">{totalProjects}</span>
@@ -277,40 +300,41 @@ export default function OpenProjectSection() {
         </div>
 
         {/* 2-Column Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-5 lg:gap-6">
           {/* Left Column - Project List (Using ProjectCardCompact) */}
           <div className="lg:col-span-5 flex flex-col h-full">
-            <div className="space-y-4 flex-grow">
+            <div className="space-y-3 sm:space-y-4 flex-grow">
               {displayedProjects.map((project) => (
                 <ProjectCardCompact
                   key={project.id}
                   project={project}
                   isSelected={selectedProjectId === project.id}
                   onClick={() => setSelectedProjectId(project.id)}
+                  isMobile={true} // This will be handled by the component itself using CSS
                 />
               ))}
               
               {/* Empty State within list if needed */}
               {displayedProjects.length === 0 && (
-                <div className="text-center py-10 border border-dashed rounded-lg">
-                  <p className="text-muted-foreground">Tidak ada project</p>
+                <div className="text-center py-8 sm:py-10 border border-dashed rounded-lg">
+                  <p className="text-muted-foreground text-sm sm:text-base">Tidak ada project</p>
                 </div>
               )}
             </div>
 
             {/* Pagination Controls */}
             {totalPages > 1 && (
-              <div className="flex justify-center items-center gap-2 mt-6 pt-4 border-t border-border">
+              <div className="flex justify-center items-center gap-2 mt-4 sm:mt-5 lg:mt-6 pt-3 sm:pt-4 border-t border-border">
                 <button
                   onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
                   disabled={currentPage === 1}
-                  className="p-2 border border-border rounded-lg hover:bg-accent disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                  className="p-1.5 sm:p-2 border border-border rounded-lg hover:bg-accent disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                 >
-                  <ChevronLeft className="h-4 w-4" />
+                  <ChevronLeft className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                 </button>
                 
                 <div className="flex items-center gap-1">
-                  <span className="text-sm font-medium">
+                  <span className="text-xs sm:text-sm font-medium">
                     Halaman {currentPage} dari {totalPages}
                   </span>
                 </div>
@@ -318,16 +342,16 @@ export default function OpenProjectSection() {
                 <button
                   onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
                   disabled={currentPage === totalPages}
-                  className="p-2 border border-border rounded-lg hover:bg-accent disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                  className="p-1.5 sm:p-2 border border-border rounded-lg hover:bg-accent disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                 >
-                  <ChevronRight className="h-4 w-4" />
+                  <ChevronRight className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                 </button>
               </div>
             )}
           </div>
 
-          {/* Right Column - Project Detail (Using ProjectCardDetail) */}
-          <div className="lg:col-span-7">
+          {/* Right Column - Project Detail (Hidden on Mobile) */}
+          <div className="hidden lg:block lg:col-span-7">
             <ProjectCardDetail
               project={selectedProject}
               projectDetail={selectedProjectDetail}

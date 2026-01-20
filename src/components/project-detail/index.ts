@@ -1,0 +1,9 @@
+export { default as ProjectHero } from "./ProjectHero";
+export { default as ProjectHeader } from "./ProjectHeader";
+export { default as ProjectAbout } from "./ProjectAbout";
+export { default as ProjectDeliverables } from "./ProjectDeliverables";
+export { default as ProjectMajors } from "./ProjectMajors";
+export { default as ProjectRoles } from "./ProjectRoles";
+export { default as ProjectCTA } from "./ProjectCTA";
+export { default as InitiatorCard } from "./InitiatorCard";
+export { default as ProjectTags } from "./ProjectTags";

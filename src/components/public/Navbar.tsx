@@ -74,11 +74,6 @@ export default function Navbar() {
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-2">
 
-            {/* Buka Open Project - Primary CTA */}
-            <button className="px-5 py-2.5 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold rounded-lg transition-all duration-200 hover:shadow-lg hover:shadow-primary/20 text-sm">
-              Open Project
-            </button>
-
             {/* Cara Memulai? */}
             <Link
               href="/guide"
@@ -156,6 +151,11 @@ export default function Navbar() {
                 Login
               </button>
             )}
+
+            {/* Buka Open Project - Primary CTA */}
+            <button className="px-5 py-2.5 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold rounded-lg transition-all duration-200 hover:shadow-lg hover:shadow-primary/20 text-sm">
+              Open Project
+            </button>
 
             <div className="border-1 border-border h-6"></div>
 

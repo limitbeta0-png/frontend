@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useState, useRef, useEffect } from "react";
 import { ProjectCardProps } from "./ProjectCard";
 import { ProjectDetail } from "@/data/projectDetails";
+import AuthModal from "./AuthModal";
 
 interface ProjectCardDetailProps {
   project: ProjectCardProps;
@@ -15,6 +16,7 @@ interface ProjectCardDetailProps {
 export default function ProjectCardDetail({ project, projectDetail }: ProjectCardDetailProps) {
   const [activeTab, setActiveTab] = useState<"description" | "initiator">("description");
   const [showFloatingHeader, setShowFloatingHeader] = useState(false);
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -61,8 +63,11 @@ export default function ProjectCardDetail({ project, projectDetail }: ProjectCar
                 <ExternalLink className="h-4 w-4 hover:text-primary" />
               </Link>
             </button>
-            <button className="px-4 py-2 bg-primary hover:bg-primary/90 text-primary-foreground text-sm font-bold rounded-lg transition-all">
-              Apply
+            <button 
+              onClick={() => setIsAuthModalOpen(true)}
+              className="px-6 py-2.5 bg-primary hover:bg-primary/90 text-primary-foreground text-base font-bold rounded-lg transition-all shadow-md hover:shadow-lg"
+            >
+              Apply Now
             </button>
           </div>
         </div>
@@ -124,8 +129,11 @@ export default function ProjectCardDetail({ project, projectDetail }: ProjectCar
                   </Link>
                 </button>
               </div>
-              <button className="px-4 py-2 bg-primary hover:bg-primary/90 text-primary-foreground text-sm font-bold rounded-lg transition-all shadow-lg hover:shadow-primary/20">
-                Apply
+              <button 
+                onClick={() => setIsAuthModalOpen(true)}
+                className="px-8 py-3 bg-primary hover:bg-primary/90 text-primary-foreground text-base font-bold rounded-lg transition-all shadow-lg hover:shadow-xl hover:shadow-primary/30 hover:scale-105"
+              >
+                Apply Now
               </button>
             </div>
           </div>
@@ -448,6 +456,12 @@ export default function ProjectCardDetail({ project, projectDetail }: ProjectCar
           )}
         </div>
       </div>
+
+      {/* Auth Modal */}
+      <AuthModal 
+        isOpen={isAuthModalOpen} 
+        onClose={() => setIsAuthModalOpen(false)} 
+      />
     </div>
   );
 }
