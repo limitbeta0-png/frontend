@@ -1,6 +1,6 @@
 "use client";
 
-import { MapPin, Clock, Calendar } from "lucide-react";
+import { MapPin, Clock, Calendar, Users } from "lucide-react";
 import { ProjectCardProps } from "./ProjectCard";
 import Link from "next/link";
 
@@ -72,17 +72,28 @@ export default function ProjectCardCompact({ project, isSelected = false, onClic
         )}
       </div>
 
-      {/* Tags */}
-      <div className="flex flex-wrap gap-1.5 sm:gap-2 w-full overflow-hidden">
-        {project.tags.slice(0, 3).map((tag, idx) => (
-          <span
-            key={idx}
-            className="px-2 sm:px-2.5 py-0.5 sm:py-1 bg-primary/10 text-primary text-[10px] sm:text-xs lg:text-sm rounded-md font-medium whitespace-nowrap flex-shrink-0"
-          >
-            {tag}
-          </span>
-        ))}
-      </div>
+      {/* Available Roles */}
+      {project.rolesNeeded && project.rolesNeeded.length > 0 && (
+        <div className="mb-3 lg:mb-4 w-full overflow-hidden">
+          <div className="flex items-start gap-1.5 sm:gap-2">
+            <Users className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-primary flex-shrink-0 mt-0.5" />
+            <div className="flex flex-wrap gap-1 sm:gap-1.5 flex-1 min-w-0">
+              {project.rolesNeeded.map((role, idx) => (
+                <span
+                  key={idx}
+                  className={`px-2 sm:px-2.5 py-0.5 sm:py-1 border text-[10px] sm:text-xs font-medium rounded whitespace-nowrap ${
+                    role.filled
+                      ? 'bg-primary/5 border-primary/20 text-primary/50 line-through'
+                      : 'bg-primary/10 border-primary/30 text-primary'
+                  }`}
+                >
+                  {role.name}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Closing Date */}
       <div className="mt-3 lg:mt-4 pt-3 lg:pt-4 border-t border-border flex items-center gap-1 sm:gap-1.5 text-xs sm:text-sm text-muted-foreground w-full overflow-hidden">

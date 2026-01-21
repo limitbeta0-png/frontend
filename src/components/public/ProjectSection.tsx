@@ -207,7 +207,7 @@ export default function OpenProjectSection() {
           selectedTab={activeTab}
           onTabChange={(value) => setActiveTab(value as any)}
           
-          searchPlaceholder="Cari posisi atau lokasi..."
+          searchPlaceholder="Temukan project yang anda inginkan..."
           searchValue={searchInput}
           onSearchChange={setSearchInput}
           onSearchKeyPress={handleSearchKeyPress}
