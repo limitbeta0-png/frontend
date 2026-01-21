@@ -7,6 +7,7 @@ import { projectDetailsData } from "@/data/projectDetails";
 import ProjectCardCompact from "@/components/shared/ProjectCardCompact";
 import ProjectCardDetail from "@/components/shared/ProjectCardDetail";
 import ProjectFilterBar from "@/components/shared/ProjectFilterBar";
+import EmptyState from "@/components/shared/EmptyState";
 import Link from "next/link";
 
 export default function OpenProjectSection() {
@@ -35,6 +36,27 @@ export default function OpenProjectSection() {
       handleSearch();
     }
   };
+
+  // Reset all filters and search
+  const handleResetFilters = () => {
+    setActiveTab("all");
+    setSearchInput("");
+    setSearchQuery("");
+    setSelectedCategory("all");
+    setSelectedUniversity("all");
+    setSelectedMajor("all");
+    setSelectedLocationType("all");
+    setSelectedRequirement("all");
+    setSelectedCity("all");
+    setSortBy("newest");
+  };
+
+  // Sync searchQuery when searchInput is cleared via X button
+  useEffect(() => {
+    if (searchInput === "") {
+      setSearchQuery("");
+    }
+  }, [searchInput]);
 
   // Get unique categories for filter dropdown
   const uniqueCategories = useMemo(() => {
@@ -299,65 +321,72 @@ export default function OpenProjectSection() {
           </div>
         </div>
 
-        {/* 2-Column Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-5 lg:gap-6">
-          {/* Left Column - Project List (Using ProjectCardCompact) */}
-          <div className="lg:col-span-5 flex flex-col h-full">
-            <div className="space-y-3 sm:space-y-4 flex-grow">
-              {displayedProjects.map((project) => (
-                <ProjectCardCompact
-                  key={project.id}
-                  project={project}
-                  isSelected={selectedProjectId === project.id}
-                  onClick={() => setSelectedProjectId(project.id)}
-                  isMobile={true} // This will be handled by the component itself using CSS
-                />
-              ))}
-              
-              {/* Empty State within list if needed */}
-              {displayedProjects.length === 0 && (
-                <div className="text-center py-8 sm:py-10 border border-dashed rounded-lg">
-                  <p className="text-muted-foreground text-sm sm:text-base">Tidak ada project</p>
+        {/* Conditional Layout: Empty State OR 2-Column Layout */}
+        {displayedProjects.length === 0 ? (
+          /* Single Centered Empty State */
+          <div className="border border-border rounded-lg">
+            <EmptyState
+              type={searchQuery ? "search" : (activeTab !== "all" || selectedCategory !== "all" || selectedUniversity !== "all" || selectedMajor !== "all" || selectedLocationType !== "all" || selectedRequirement !== "all" || selectedCity !== "all") ? "filter" : "no-data"}
+              searchQuery={searchQuery}
+              onReset={handleResetFilters}
+            />
+          </div>
+        ) : (
+          /* 2-Column Layout with Projects */
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-5 lg:gap-6">
+            {/* Left Column - Project List (Using ProjectCardCompact) */}
+            <div className="lg:col-span-5 flex flex-col h-full">
+              <div className="space-y-3 sm:space-y-4 flex-grow">
+                {displayedProjects.map((project) => (
+                  <ProjectCardCompact
+                    key={project.id}
+                    project={project}
+                    isSelected={selectedProjectId === project.id}
+                    onClick={() => setSelectedProjectId(project.id)}
+                    isMobile={true} // This will be handled by the component itself using CSS
+                  />
+                ))}
+              </div>
+
+              {/* Pagination Controls */}
+              {totalPages > 1 && (
+                <div className="flex justify-center items-center gap-2 mt-4 sm:mt-5 lg:mt-6 pt-3 sm:pt-4 border-t border-border">
+                  <button
+                    onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                    disabled={currentPage === 1}
+                    className="p-1.5 sm:p-2 border border-border rounded-lg hover:bg-accent disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                  >
+                    <ChevronLeft className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                  </button>
+                  
+                  <div className="flex items-center gap-1">
+                    <span className="text-xs sm:text-sm font-medium">
+                      Halaman {currentPage} dari {totalPages}
+                    </span>
+                  </div>
+
+                  <button
+                    onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                    disabled={currentPage === totalPages}
+                    className="p-1.5 sm:p-2 border border-border rounded-lg hover:bg-accent disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                  >
+                    <ChevronRight className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                  </button>
                 </div>
               )}
             </div>
 
-            {/* Pagination Controls */}
-            {totalPages > 1 && (
-              <div className="flex justify-center items-center gap-2 mt-4 sm:mt-5 lg:mt-6 pt-3 sm:pt-4 border-t border-border">
-                <button
-                  onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-                  disabled={currentPage === 1}
-                  className="p-1.5 sm:p-2 border border-border rounded-lg hover:bg-accent disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                >
-                  <ChevronLeft className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
-                </button>
-                
-                <div className="flex items-center gap-1">
-                  <span className="text-xs sm:text-sm font-medium">
-                    Halaman {currentPage} dari {totalPages}
-                  </span>
-                </div>
-
-                <button
-                  onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
-                  disabled={currentPage === totalPages}
-                  className="p-1.5 sm:p-2 border border-border rounded-lg hover:bg-accent disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                >
-                  <ChevronRight className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
-                </button>
-              </div>
-            )}
+            {/* Right Column - Project Detail (Hidden on Mobile) */}
+            <div className="hidden lg:block lg:col-span-7">
+              {selectedProject && (
+                <ProjectCardDetail
+                  project={selectedProject}
+                  projectDetail={selectedProjectDetail}
+                />
+              )}
+            </div>
           </div>
-
-          {/* Right Column - Project Detail (Hidden on Mobile) */}
-          <div className="hidden lg:block lg:col-span-7">
-            <ProjectCardDetail
-              project={selectedProject}
-              projectDetail={selectedProjectDetail}
-            />
-          </div>
-        </div>
+        )}
       </div>
     </section>
   );

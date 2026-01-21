@@ -266,8 +266,24 @@ export default function ProjectFilterBar({
                 }}
                 onKeyDown={handleKeyDown}
                 onFocus={() => searchValue.length >= 2 && setShowSuggestions(true)}
-                className="w-full h-[40px] sm:h-[46px] px-3 sm:px-4 bg-background border border-border rounded-lg text-xs sm:text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all shadow-sm"
+                className="w-full h-[40px] sm:h-[46px] px-3 sm:px-4 pr-10 bg-background border border-border rounded-lg text-xs sm:text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all shadow-sm"
               />
+
+              {/* Clear Button (X) - Only show when there's text */}
+              {searchValue && (
+                <button
+                  onClick={() => {
+                    onSearchChange("");
+                    setShowSuggestions(false);
+                    setSelectedSuggestionIndex(-1);
+                  }}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 p-1 hover:bg-muted rounded-md transition-colors group"
+                  type="button"
+                  aria-label="Clear search"
+                >
+                  <X className="h-4 w-4 text-muted-foreground group-hover:text-foreground transition-colors" />
+                </button>
+              )}
 
               {/* Suggestions Dropdown */}
               {showSuggestions && hasSuggestions && (
