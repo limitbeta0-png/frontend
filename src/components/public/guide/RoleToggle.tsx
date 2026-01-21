@@ -19,7 +19,7 @@ export default function RoleToggle({ selectedRole, onRoleChange }: RoleTogglePro
         }`}
       >
         <Code className="h-4 w-4" />
-        Untuk Project Seeker
+        Project Seeker
       </button>
       <button
         onClick={() => onRoleChange("initiator")}
@@ -30,7 +30,7 @@ export default function RoleToggle({ selectedRole, onRoleChange }: RoleTogglePro
         }`}
       >
         <Briefcase className="h-4 w-4" />
-        Untuk Project Initiator
+        Project Initiator
       </button>
     </div>
   );
